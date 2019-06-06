@@ -40,14 +40,20 @@ typedef struct {
 
     int KingSq[4];
 
-    int side;
+    int color;
     int enPas;
     int fiftyMove;
 
     int ply;
     int hisPly;
 
-    U64 posKey;
+    U160 posKey;
+
+    int pceNum[25];
+    
+    int bigPce[5];
+    int majPce[5];
+    int minPce[5];
 
 } S_BOARD;
 
