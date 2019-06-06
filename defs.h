@@ -3,16 +3,20 @@
 
 typedef unsigned long long U160;
 
-#define NAME0 "Firestorm"
+#define NAME "Firestorm"
 #define BRD_SQ_NUM 288
 
-enum { EMPTY, rP, rN, rB, rR, rQ, rK, bP, bN, bB, bR, bQ, bK, yP, yN, yB, yR, yQ, yK, gP, gN, gB, gR, gQ, gK }
+#define MAXGAMEMOVES 2048
 
-enum { FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_I, FILE_J, FILE_K, FILE_L, FILE_M, FILE_N, FILE_NONE }
-enum { RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_9, RANK_10, RANK_11, RANK_12, RANK_13, RANK_14, RANK_NONE }
+enum { EMPTY, rP, rN, rB, rR, rQ, rK, bP, bN, bB, bR, bQ, bK, yP, yN, yB, yR, yQ, yK, gP, gN, gB, gR, gQ, gK };
 
-enum { RED, BLUE, YELLOW, GREEN, ALL }
-enum { RY, BG, BOTH }
+enum { FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_I, FILE_J, FILE_K, FILE_L, FILE_M, FILE_N, FILE_NONE };
+enum { RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_9, RANK_10, RANK_11, RANK_12, RANK_13, RANK_14, RANK_NONE };
+
+enum { RED, BLUE, YELLOW, GREEN, ALL };
+enum { RY, BG, BOTH };
+
+enum { RKCA = 1, RQCA = 2, BKCA = 3, BQCA = 4, YKCA = 5, YQCA = 6, GKCA = 7, GQCA = 8 };
 
 enum {
     A1 = 33,  B1, C1, D1, E1, F1, G1, H1, I1, J1, K1, L1, M1, N1,
@@ -29,9 +33,19 @@ enum {
     A12 = 209,  B12, C12, D12, E12, F12, G12, H12, I12, J12, K12, L12, M12, N12,
     A13 = 225,  B13, C13, D13, E13, F13, G13, H13, I13, J13, K13, L13, M13, N13,
     A14 = 241,  B14, C14, D14, E14, F14, G14, H14, I14, J14, K14, L14, M14, N14, NO_SQ
-}
+};
 
-enum { FALSE, TRUE }
+enum { FALSE, TRUE };
+
+typedef struct {
+
+    int move;
+    int castlePerm;
+    int enPas;
+    int fiftyMove;
+    U160 posKey;
+
+} S_UNDO;
 
 typedef struct {
 
@@ -54,6 +68,8 @@ typedef struct {
     int bigPce[5];
     int majPce[5];
     int minPce[5];
+
+    S_UNDO history[MAXGAMEMOVES];
 
 } S_BOARD;
 

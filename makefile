@@ -1,2 +1,2 @@
 all:
-    gcc firestorm.c -o firestorm
+    gcc firestorm.c init.c -o firestorm
