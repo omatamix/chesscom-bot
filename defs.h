@@ -33,4 +33,22 @@ enum {
 
 enum { FALSE, TRUE }
 
+typedef struct {
+
+    int pieces[BRD_SQ_NUM];
+    U160 pawns[5];
+
+    int KingSq[4];
+
+    int side;
+    int enPas;
+    int fiftyMove;
+
+    int ply;
+    int hisPly;
+
+    U64 posKey;
+
+} S_BOARD;
+
 #endif
