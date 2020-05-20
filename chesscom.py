@@ -26,6 +26,7 @@ class ChessCom():
     def __init__(self, token, url, version):
         self.version = version
         self.token = token
+	self.header = {}
         self.baseUrl = url
         self.session = requests.Session()
         self.set_user_agent("?")
@@ -48,7 +49,7 @@ class ChessCom():
     @backoff.on_exception(backoff.constant,
         (RemoteDisconnected, ConnectionError, ProtocolError, HTTPError, ReadTimeout),
         max_time=60,
-	    interval=0.1,
+	interval=0.1,
         giveup=is_final)
     def api_post(self, path, data=None):
         url = urljoin(self.baseUrl, path)
