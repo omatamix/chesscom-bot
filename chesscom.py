@@ -15,7 +15,7 @@ ENDPOINTS = {
     "arrow": "/bot?token={}&arrow={}",
     "chat": "/bot?token={}&chat={}",
     "circle": "/bot?token={}&arrow={}",
-    "clear": "/bot?token={}&arrow=clear"
+    "clear": "/bot?token={}&arrow=clear",
     "play": "/bot?token={}&arrow{}",
     "resign": "/bot?token={}&play=R",
     "stream": "/bot?token={}&stream=1"
