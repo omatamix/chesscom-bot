@@ -26,7 +26,6 @@ class ChessCom():
     def __init__(self, token, url, version):
         self.version = version
         self.token = token
-	self.header = []
         self.baseUrl = url
         self.session = requests.Session()
         self.set_user_agent("?")
