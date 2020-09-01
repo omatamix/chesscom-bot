@@ -5,29 +5,28 @@ from urllib3.exceptions import ProtocolError
 
 try:
     from http.client import RemoteDisconnected
-    # New in version 3.5: Previously, BadStatusLine('') was raised.
 except ImportError:
     from http.client import BadStatusLine as RemoteDisconnected
 
 import backoff
 
 ENDPOINTS = {
-    "arrow": "/bot?token={}&arrow={}",
+    "arrow": "/bot?token={}&arrows={}",
     "chat": "/bot?token={}&chat={}",
     "play": "/bot?token={}&play={}",
-    "stream": "/bot?token={}&stream=1"
+    "resign": "/bot?token={}&play=R",
+    "stream" => "/bot?token={}&stream=1",
 }
 
-class ChessCom():
-    def __init__(self, token, url, version):
-        self.version = version
+class Api():
+    def __init__(url, token, version):
+        self.url = url
         self.token = token
-        self.baseUrl = url
+        self.version = version
         self.session = requests.Session()
         self.set_user_agent("?")
 
     def is_final(exception):
-	""" Determine if this request is final. """
         return isinstance(exception, HTTPError) and exception.response.status_code < 500
 
     @backoff.on_exception(backoff.constant,
@@ -36,42 +35,27 @@ class ChessCom():
         interval=0.1,
         giveup=is_final)
     def api_get(self, path):
-	""" Preform a get request. """
-        url = urljoin(self.baseUrl, path)
+        url = urljoin(self.url, path)
         response = self.session.get(url, timeout=2)
         response.raise_for_status()
         return response.json()
 
-    def clear(self):
-	""" Clears all of the arrows on the board. """
-        return self.api_get(ENDPOINTS["arrow"].format(self.token, "clear"))
+    def stream(self):
+        url = urljoin(self.url, ENDPOINTS["stream"].format(self.token))
+        return requests.get(url, headers=self.header, stream=True)
+
+    def arrow(self, data):
+        return self.api_get(ENDPOINTS["arrow"].format(self.token, data))
 
     def play(self, move):
-        """ Preforms a move on the board. """
         return self.api_get(ENDPOINTS["play"].format(self.token, move))
 
-    def chat(self, text):
-	""" Sends a message to the chat. """
-        return self.api_get(ENDPOINTS["chat"].format(self.token, text))
-
-    def arrow(self, arrow):
-	""" Sends an arrow to the board. """
-        return self.api_get(ENDPOINTS["arrow"].format(self.token, arrow))
-
-    def circle(self, move):
-	""" Sends a circle to the board. """
-        return self.api_get(ENDPOINTS["circle"].format(self.token, move + move))
-
-    def get_game_stream(self):
-        """ Gets the games stream data. """
-        url = urljoin(self.baseUrl, ENDPOINTS["stream"].format(self.token))
-        return requests.get(url, headers = self.header, stream = True)
+    def chat(self, message):
+        return self.api_get(ENDPOINTS["chat"].format(self.token, message))
 
     def resign(self):
-	""" Resigns the current game. """
-        return self.api_get(ENDPOINTS["play"].format(self.token, "R"))
+        return self.api_get(ENDPOINTS["resign"].format(self.token))
 
-    def set_user_agent(self, username):
-	""" Sets the user agent. """
-        self.header.update({"User-Agent": "chesscom-bot/{} user:{}".format(self.version, username)})
+    def set_user_agent(self, user):
+        self.header.update({"User-Agent": "chesscom-bot/{} user:{}".format(self.version, user)})
         self.session.headers.update(self.header)
