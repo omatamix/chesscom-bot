@@ -15,7 +15,7 @@ ENDPOINTS = {
     "chat": "/bot?token={}&chat={}",
     "play": "/bot?token={}&play={}",
     "resign": "/bot?token={}&play=R",
-    "stream" => "/bot?token={}&stream=1",
+    "stream": "/bot?token={}&stream=1",
 }
 
 class Api():
