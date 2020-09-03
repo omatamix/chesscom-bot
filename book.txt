@@ -1,4 +1,9 @@
 h2-h3
+h2-h3 b6-d6
+h2-h3 b7-c7
 h2-h4
+h2-h4 b7-c7
+h2-h4 b6-d6
 g2-g4
-f2-f4
+g2-g4 b6-c6
+g2-g4 b8-c8
