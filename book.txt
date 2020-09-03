@@ -1,9 +1,20 @@
 h2-h3
 h2-h3 b6-d6
+h2-h3 b6-d6 h13-h11
+h2-h3 b6-d6 g13-g12
+h2-h3 b6-d6 g13-g12 m8-l8
+h2-h3 b6-d6 g13-g12 m8-l8 Ne1-d3
+h2-h3 b6-d6 g13-g12 m8-l8 Ne1-d3 b4-c4
 h2-h3 b7-c7
 h2-h4
 h2-h4 b7-c7
+h2-h4 b7-c7 g13-g12
+h2-h4 b7-c7 g13-g12 m8-l8
+h2-h4 b7-c7 g13-g12 m8-l8 Ne1-f3
 h2-h4 b6-d6
+h2-h4 b6-d6 g13-g12
+h2-h4 b6-d6 g13-g12 m8-l8
+h2-h4 b6-d6 g13-g12 m8-l8 d2-d4
 g2-g4
 g2-g4 b6-c6
 g2-g4 b8-c8
