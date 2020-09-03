@@ -19,7 +19,7 @@ ENDPOINTS = {
 }
 
 class Api():
-    def __init__(url, token, version):
+    def __init__(self, url, token, version):
         self.url = url
         self.token = token
         self.version = version
